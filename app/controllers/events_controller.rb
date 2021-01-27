@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(**event_params, starttime: Time.now, endtime: Time.now + 1.day)
+    @event = Event.new(event_params)
 
     if @event.save
       redirect_to events_path
