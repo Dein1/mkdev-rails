@@ -1,0 +1,7 @@
+.container
+  %h1= @event.title
+  #desc= @event.description
+  %div
+    %samp= @event.starttime.strftime("%d/%m/%Y")
+  %div
+    %samp= @event.endtime.strftime("%d/%m/%Y")

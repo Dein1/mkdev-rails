@@ -9,9 +9,10 @@
           = event.title
           .small= event.description
         .btn-group
-          %button.btn.btn-primary
+          %button.btn.btn-outline-primary= link_to "View", event
+          %button.btn.btn-outline-primary
             Edit
-          %button.btn.btn-primary
+          %button.btn.btn-outline-danger
             Delete
     %br
     = paginate @events
