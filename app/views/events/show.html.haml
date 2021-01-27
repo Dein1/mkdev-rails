@@ -1,7 +1,14 @@
 .container
   %h1= @event.title
+  %h4= @event.location
   #desc= @event.description
+  %br
+  %blockquote= "Email: #{@event.organizeremail}"
+  %blockquote= "Telegram: #{@event.organizertelegram}"
   %div
-    %samp= @event.starttime.strftime("%d/%m/%Y")
+    %samp= @event.starttime.strftime("%d/%m/%Y - %H:%M")
   %div
-    %samp= @event.endtime.strftime("%d/%m/%Y")
+    %samp= @event.endtime.strftime("%d/%m/%Y - %H:%M")
+
+  %br
+  = link_to "Back", events_path, {:class=>"btn btn-light"}

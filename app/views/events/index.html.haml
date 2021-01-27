@@ -9,11 +9,11 @@
           = event.title
           .small= event.description
         .btn-group
-          %button.btn.btn-outline-primary= link_to "View", event
-          %button.btn.btn-outline-primary
-            Edit
-          %button.btn.btn-outline-danger
-            Delete
+          = link_to "View", event_path(event), class: "btn btn-outline-primary"
+          = link_to "Edit", edit_event_path(event), class: "btn btn-outline-primary"
+          = link_to "Delete", event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: "Are you sure?" }
     %br
     = paginate @events
+  %br
+  %a.btn.btn-primary{ href: new_event_path() } New event
   
