@@ -3,10 +3,9 @@ require 'rails_helper'
 RSpec.describe "Events", type: :request do
 
   describe "GET /" do
-    it "returns http success" do
-      get "/"
-      expect(response).to have_http_status(:success)
-    end
-  end
+    before { get "/events" }
 
+    it { expect(response).to have_http_status(:success) }
+    it { should render_template("index") }
+  end
 end

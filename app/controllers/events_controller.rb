@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      redirect_to events_path
+      redirect_to events_path, success: "an Event was created!"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to events_path
+      redirect_to events_path, success: "Successfuly edited!"
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
 
-    redirect_to root_path
+    redirect_to root_path, warning: "Deleted!"
   end
 
   private
