@@ -3,12 +3,12 @@
   %h4= @event.location
   #desc= @event.description
   %br
-  %blockquote= "Email: #{@event.organizeremail}"
-  %blockquote= "Telegram: #{@event.organizertelegram}"
+  %blockquote= "Email: #{@event.organizer_email}"
+  %blockquote= "Telegram: #{@event.organizer_telegram}"
   %div
-    %samp= @event.starttime.strftime("%d/%m/%Y - %H:%M")
+    %samp= @event.start_time.strftime("%d/%m/%Y - %H:%M")
   %div
-    %samp= @event.endtime.strftime("%d/%m/%Y - %H:%M")
+    %samp= @event.end_time.strftime("%d/%m/%Y - %H:%M")
 
   %br
   = link_to "Back", events_path, {:class=>"btn btn-light"}
