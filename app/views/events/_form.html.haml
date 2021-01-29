@@ -1,5 +1,5 @@
 = simple_form_for @event do |f|
-  = f.input :title, error: 'Title is necessary, please enter one'
+  = f.input :title, error: t(:title_necessary)
   = f.input :description
   = f.input :location
   = f.input :organizer_telegram
@@ -7,4 +7,4 @@
   = f.input :start_time
   = f.input :end_time
   = f.button :submit
-  = link_to "Cancel", events_path, {:class=>"btn btn-default"}
+  = link_to t(:cancel), events_path, {:class=>"btn btn-default"}

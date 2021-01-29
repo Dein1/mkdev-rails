@@ -9,9 +9,9 @@
           = event.title
           .small= event.description
         .btn-group
-          = link_to "View", event_path(event), class: "btn btn-outline-primary"
-          = link_to "Edit", edit_event_path(event), class: "btn btn-outline-primary"
-          = link_to "Delete", event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: "Are you sure?" }
+          = link_to t(:view), event_path(event), class: "btn btn-outline-primary"
+          = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary"
+          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: "Are you sure?" }
     %br
     = paginate @events
   %br
