@@ -44,3 +44,5 @@ en:
   was_deleted: "Deleted!"
   email: "Email:"
   telegram: "Telegram:"
+  new_event: "New event"
+  delete_confirm: "Are you sure?"

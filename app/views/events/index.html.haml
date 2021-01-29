@@ -1,5 +1,5 @@
 .text-center.jumbotron
-  %h1 Events
+  %h1= t(:events)
 %br
 .container
   %ul.list-group
@@ -11,9 +11,9 @@
         .btn-group
           = link_to t(:view), event_path(event), class: "btn btn-outline-primary"
           = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary"
-          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: "Are you sure?" }
+          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) }
     %br
     = paginate @events
   %br
-  %a.btn.btn-primary{ href: new_event_path() } New event
+  %a.btn.btn-primary{ href: new_event_path() }= t(:new_event)
   

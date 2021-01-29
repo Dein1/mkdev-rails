@@ -32,4 +32,4 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-require './spec/support/factory_bot.rb'
+require './spec/support/factory_bot'
