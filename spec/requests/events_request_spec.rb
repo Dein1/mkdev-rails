@@ -19,11 +19,11 @@ RSpec.describe "Events", type: :request do
     it { should render_template :new }
   end
 
-  describe "POST /create" do
+  describe "POST /" do
     let(:params) { { event: FactoryBot.attributes_for(:event) } }
-    before { post events_path, params: params }
+    subject { post events_path, params: params }
 
-    it { should redirect_to events_path }
+    it { expect { subject }.to change(Event, :count).by(1) }
   end
 
   describe "GET /edit" do
@@ -31,6 +31,28 @@ RSpec.describe "Events", type: :request do
     before { get edit_event_path(event) }
 
     it { should render_template :edit }
+  end
+
+  describe "PUT /update" do
+    let(:event) { FactoryBot.create(:event) }
+
+    context "success" do
+      let(:params) { { event: { title: "new title!" } } }
+
+      it "should redirect" do
+        put event_url(event), params: params
+        should redirect_to events_path
+      end
+    end
+
+    context "failure" do
+      let(:invalid_params) { { event: { title: "" } } }
+
+      it "shouldn't redirect with invalid params" do
+        put event_url(event), params: invalid_params
+        should_not redirect_to events_path
+      end
+    end
   end
 
   describe "DELETE /" do
