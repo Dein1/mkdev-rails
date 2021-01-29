@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
 
-    redirect_to root_path, warning: "Deleted!"
+    redirect_to events_path, warning: "Deleted!"
   end
 
   private
