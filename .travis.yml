@@ -3,8 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=e8c07eafc36695e4cf5f8f83d7f841b4d3dc9294679ef6e1d76319e802693bbb
 language: ruby
 rvm:
- - 2.2
- - jruby
+ - 2.7
 cache:
   - bundler
   - yarn
