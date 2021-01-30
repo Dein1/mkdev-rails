@@ -30,4 +30,19 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  back: "Back"
+  new_event: "New event"
+  edit_event: "Edit event"
+  events: "Events"
+  view: "View"
+  edit: "Edit"
+  delete: "Delete"
+  cancel: "Cancel"
+  title_necessary: "Title is necessary, please enter one"
+  was_created: "an Event was created!"
+  was_edited: "Successfuly edited!"
+  was_deleted: "Deleted!"
+  email: "Email:"
+  telegram: "Telegram:"
+  new_event: "New event"
+  delete_confirm: "Are you sure?"
