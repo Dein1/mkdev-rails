@@ -1,4 +1,5 @@
 require: 
+  - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
 AllCops:
@@ -9,7 +10,6 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'node_modules/**/*'
-
 Metrics/BlockLength:
   Exclude:
     - config/**/*
