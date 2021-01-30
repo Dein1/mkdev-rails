@@ -22,7 +22,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.2'
   gem 'rubocop'
-  gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
 end
