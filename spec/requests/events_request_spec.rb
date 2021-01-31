@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Events', type: :request do
   before do
     DatabaseCleaner.clean
+    sign_in FactoryBot.create(:user)
   end
 
   describe 'GET /' do
