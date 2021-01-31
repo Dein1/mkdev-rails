@@ -5,7 +5,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    password { Faker::Beer.brand }
+    password { Faker::Internet.password(min_length: 6) }
   end
 
   factory :event do
