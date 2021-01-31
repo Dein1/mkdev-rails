@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   def index
     @events = Event.order(created_at: :desc).page(params[:page])
@@ -43,14 +45,15 @@ class EventsController < ApplicationController
   end
 
   private
-    def event_params
-      params.require(:event).permit :title,
-                                    :description,
-                                    :location,
-                                    :start_time,
-                                    :end_time,
-                                    :organizer_email,
-                                    :organizer_telegram,
-                                    :link
-    end
+
+  def event_params
+    params.require(:event).permit :title,
+                                  :description,
+                                  :location,
+                                  :start_time,
+                                  :end_time,
+                                  :organizer_email,
+                                  :organizer_telegram,
+                                  :link
+  end
 end

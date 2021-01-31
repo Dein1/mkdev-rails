@@ -1,64 +1,70 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Events", type: :request do
-
-  before :each do
+RSpec.describe 'Events', type: :request do
+  before do
     DatabaseCleaner.clean
   end
 
-  describe "GET /" do
+  describe 'GET /' do
     before { get events_path }
 
     it { expect(response).to have_http_status :success }
-    it { should render_template :index }
+    it { is_expected.to render_template :index }
   end
 
-  describe "GET /new" do
+  describe 'GET /new' do
     before { get new_event_path }
 
-    it { should render_template :new }
+    it { is_expected.to render_template :new }
   end
 
-  describe "POST /" do
+  describe 'POST /' do
+    subject(:request) { post events_path, params: params }
+
     let(:params) { { event: FactoryBot.attributes_for(:event) } }
-    subject { post events_path, params: params }
 
-    it { expect { subject }.to change(Event, :count).by(1) }
+    it { expect { request }.to change(Event, :count).by(1) }
   end
 
-  describe "GET /edit" do
+  describe 'GET /edit' do
     let(:event) { FactoryBot.create(:event) }
+
     before { get edit_event_path(event) }
 
-    it { should render_template :edit }
+    it { is_expected.to render_template :edit }
   end
 
-  describe "PUT /update" do
+  describe 'PUT /update' do
+    subject(:update) { put event_url(event), params: params }
+
     let(:event) { FactoryBot.create(:event) }
 
-    context "success" do
-      let(:params) { { event: { title: "new title!" } } }
+    context 'when successed' do
+      let(:params) { { event: { title: 'new title!' } } }
 
-      it "should redirect" do
-        put event_url(event), params: params
-        should redirect_to events_path
+      it 'redirects' do
+        expect(update).to redirect_to events_path
       end
     end
 
-    context "failure" do
-      let(:invalid_params) { { event: { title: "" } } }
+    context 'when failed' do
+      subject(:update) { put event_url(event), params: invalid_params }
 
-      it "shouldn't redirect with invalid params" do
-        put event_url(event), params: invalid_params
-        should_not redirect_to events_path
+      let(:invalid_params) { { event: { title: '' } } }
+
+      it 'does not redirect with invalid params' do
+        expect(update).not_to redirect_to events_path
       end
     end
   end
 
-  describe "DELETE /" do
-    let!(:event) { FactoryBot.create(:event) }
-    subject { delete event_url(event) }
+  describe 'DELETE /' do
+    subject(:request) { delete event_url(event) }
 
-    it { expect { subject }.to change(Event, :count).by(-1) }
+    let!(:event) { FactoryBot.create(:event) }
+
+    it { expect { request }.to change(Event, :count).by(-1) }
   end
 end
