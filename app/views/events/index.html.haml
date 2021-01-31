@@ -3,7 +3,7 @@
 - if current_user
   .container
     .font-italic= "#{t(:logged_as)}"
-    .font-weight-bold= "#{current_user.name} #{current_user.last_name} - #{current_user.email}"
+    .font-weight-bold #{current_user.name} #{current_user.last_name} - #{current_user.email}
     = link_to t(:sign_out), destroy_user_session_path, method: :delete, class: "btn btn-link"
 - if !current_user
   .container
@@ -18,7 +18,7 @@
         .d-flex.flex-column
           = event.title
           .small= event.description
-          .small= "#{event.user.name} #{event.user.last_name}"
+          .small #{event.user.name} #{event.user.last_name}
         .btn-group
           = link_to t(:view), event_path(event), class: "btn btn-outline-primary"
           = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary"

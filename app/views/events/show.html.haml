@@ -1,14 +1,14 @@
 .container
   %h1= @event.title
   %h4= @event.location
-  .h6= "#{t(:creator)}: #{@event.user.name} #{@event.user.last_name}"
+  .h6 #{t(:creator)}: #{@event.user.name} #{@event.user.last_name}
   %br
   #desc= @event.description
   %br
-  -unless @event.organizer_email.empty?
-    %blockquote= "#{t(:email)} #{@event.organizer_email}"
-  -unless @event.organizer_telegram.empty?
-    %blockquote= "#{t(:telegram)} #{@event.organizer_telegram}"
+  - unless @event.organizer_email.empty?
+    %blockquote #{t(:email)} #{@event.organizer_email}
+  - unless @event.organizer_telegram.empty?
+    %blockquote #{t(:telegram)} #{@event.organizer_telegram}
   %div
     %samp= @event.start_time.strftime("%d/%m/%Y - %H:%M")
   %div
