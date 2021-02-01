@@ -5,8 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Events', type: :request do
   before do
     DatabaseCleaner.clean
-    sign_in FactoryBot.create(:user)
+    sign_in user
   end
+
+  let(:user) { FactoryBot.create(:user) }
+  let(:other_user) { FactoryBot.create(:user) }
 
   describe 'GET /' do
     before { get events_path }
@@ -30,7 +33,7 @@ RSpec.describe 'Events', type: :request do
   end
 
   describe 'GET /edit' do
-    let(:event) { FactoryBot.create(:event) }
+    let(:event) { FactoryBot.create(:event, author: user) }
 
     before { get edit_event_path(event) }
 
@@ -40,7 +43,7 @@ RSpec.describe 'Events', type: :request do
   describe 'PUT /update' do
     subject(:update) { put event_url(event), params: params }
 
-    let(:event) { FactoryBot.create(:event) }
+    let(:event) { FactoryBot.create(:event, author: user) }
 
     context 'when successed' do
       let(:params) { { event: { title: 'new title!' } } }
@@ -64,7 +67,7 @@ RSpec.describe 'Events', type: :request do
   describe 'DELETE /' do
     subject(:request) { delete event_url(event) }
 
-    let!(:event) { FactoryBot.create(:event) }
+    let!(:event) { FactoryBot.create(:event, author: user) }
 
     it { expect { request }.to change(Event, :count).by(-1) }
   end

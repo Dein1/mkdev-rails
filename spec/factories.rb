@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   factory :event do
-    association :user
+    author { association :user }
     title { Faker::Lorem.word }
     description { Faker::Lorem.paragraph(sentence_count: 1) }
     location { Faker::Lorem.word }

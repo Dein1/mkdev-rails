@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :check_user, only: %i[edit update destroy]
 
   def index
     @events = Event.order(created_at: :desc).page(params[:page])
@@ -25,13 +26,9 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit
-    @event = Event.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @event = Event.find(params[:id])
-
     if @event.update(event_params)
       redirect_to events_path, success: t(:was_edited)
     else
@@ -40,7 +37,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find(params[:id])
     @event.destroy
 
     redirect_to events_path, warning: t(:was_deleted)
@@ -57,5 +53,11 @@ class EventsController < ApplicationController
                                   :organizer_email,
                                   :organizer_telegram,
                                   :link
+  end
+
+  def check_user
+    @event = Event.find(params[:id])
+
+    redirect_to events_path, warning: t(:no_rights) unless @event.author == current_user
   end
 end

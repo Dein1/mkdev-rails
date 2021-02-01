@@ -1,7 +1,7 @@
 .container
   %h1= @event.title
   %h4= @event.location
-  .h6 #{t(:creator)}: #{@event.user.name} #{@event.user.last_name}
+  .h6 #{t(:creator)}: #{@event.author.name} #{@event.author.last_name}
   %br
   #desc= @event.description
   %br

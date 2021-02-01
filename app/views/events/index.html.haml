@@ -18,11 +18,11 @@
         .d-flex.flex-column
           = event.title
           .small= event.description
-          .small #{event.user.name} #{event.user.last_name}
+          .small #{event.author.name} #{event.author.last_name}
         .btn-group
           = link_to t(:view), event_path(event), class: "btn btn-outline-primary"
-          = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary"
-          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) }
+          = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary" if event.author == current_user
+          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) } if event.author == current_user
     %br
     = paginate @events
   %br
