@@ -1,5 +1,15 @@
 .text-center.jumbotron
   %h1= t(:events)
+- if current_user
+  .container
+    .font-italic= "#{t(:logged_as)}"
+    .font-weight-bold #{current_user.name} #{current_user.last_name} - #{current_user.email}
+    = link_to t(:sign_out), destroy_user_session_path, method: :delete, class: "btn btn-link"
+- if !current_user
+  .container
+    = link_to t(:sign_in), user_session_path, class: "btn btn-primary"
+    = link_to t(:sign_up), new_user_registration_path, class: "btn btn-info"
+%br
 %br
 .container
   %ul.list-group
@@ -8,12 +18,13 @@
         .d-flex.flex-column
           = event.title
           .small= event.description
+          .small #{event.author.name} #{event.author.last_name}
         .btn-group
           = link_to t(:view), event_path(event), class: "btn btn-outline-primary"
-          = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary"
-          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) }
+          = link_to t(:edit), edit_event_path(event), class: "btn btn-outline-primary" if event.author == current_user
+          = link_to t(:delete), event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) } if event.author == current_user
     %br
     = paginate @events
   %br
-  %a.btn.btn-primary{ href: new_event_path() }= t(:new_event)
-  
+  - if current_user
+    %a.btn.btn-primary{ href: new_event_path() }= t(:new_event)

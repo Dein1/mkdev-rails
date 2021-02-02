@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: :index
+  before_action :find_event, only: %i[show edit update destroy]
+  before_action :check_user, only: %i[edit update destroy]
+
   def index
     @events = Event.order(created_at: :desc).page(params[:page])
   end
 
-  def show
-    @event = Event.find(params[:id])
-  end
+  def show; end
 
   def new
     @event = Event.new
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.new(event_params)
 
     if @event.save
       redirect_to events_path, success: t(:was_created)
@@ -23,13 +25,9 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit
-    @event = Event.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @event = Event.find(params[:id])
-
     if @event.update(event_params)
       redirect_to events_path, success: t(:was_edited)
     else
@@ -38,7 +36,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find(params[:id])
     @event.destroy
 
     redirect_to events_path, warning: t(:was_deleted)
@@ -55,5 +52,15 @@ class EventsController < ApplicationController
                                   :organizer_email,
                                   :organizer_telegram,
                                   :link
+  end
+
+  def find_event
+    @event = Event.find(params[:id])
+  end
+
+  def check_user
+    return if @event.author == current_user
+
+    redirect_to events_path, warning: t(:no_rights)
   end
 end

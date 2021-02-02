@@ -7,6 +7,7 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'database_cleaner/active_record'
+require 'devise'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -15,6 +16,10 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Capybara::DSL
+
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = true
@@ -34,3 +39,4 @@ Shoulda::Matchers.configure do |config|
 end
 
 require './spec/support/factory_bot'
+require './spec/helpers/user_helper'
