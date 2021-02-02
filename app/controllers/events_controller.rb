@@ -2,15 +2,14 @@
 
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :find_event, :check_user, { only: %i[edit update destroy] }
+  before_action :find_event, only: %i[show edit update destroy]
+  before_action :check_user, only: %i[edit update destroy]
 
   def index
     @events = Event.order(created_at: :desc).page(params[:page])
   end
 
-  def show
-    find_event
-  end
+  def show; end
 
   def new
     @event = Event.new
@@ -60,6 +59,8 @@ class EventsController < ApplicationController
   end
 
   def check_user
-    redirect_to events_path, warning: t(:no_rights) unless @event.author == current_user
+    return if @event.author == current_user
+
+    redirect_to events_path, warning: t(:no_rights)
   end
 end

@@ -39,3 +39,4 @@ Shoulda::Matchers.configure do |config|
 end
 
 require './spec/support/factory_bot'
+require './spec/helpers/user_helper'
