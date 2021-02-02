@@ -18,6 +18,7 @@ end
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Capybara::DSL
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
