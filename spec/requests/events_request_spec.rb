@@ -3,13 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Events', type: :request do
-  before do
-    DatabaseCleaner.clean
-    sign_in user
-  end
+  before { sign_in user }
 
-  let(:user) { FactoryBot.create(:user) }
-  let(:other_user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
 
   describe 'GET /' do
     before { get events_path }
@@ -21,7 +18,7 @@ RSpec.describe 'Events', type: :request do
   describe 'GET /event' do
     before { get event_path(event) }
 
-    let(:event) { FactoryBot.create(:event, author: user) }
+    let(:event) { create(:event, author: user) }
 
     it { expect(response).to have_http_status :success }
     it { is_expected.to render_template :show }
@@ -36,14 +33,14 @@ RSpec.describe 'Events', type: :request do
   describe 'POST /' do
     subject(:create_request) { post events_path, params: params }
 
-    let(:params) { { event: FactoryBot.attributes_for(:event) } }
+    let(:params) { { event: attributes_for(:event) } }
 
     it { expect { create_request }.to change(Event, :count).by(1) }
     it { is_expected.to redirect_to events_path }
   end
 
   describe 'GET /edit' do
-    let(:event) { FactoryBot.create(:event, author: user) }
+    let(:event) { create(:event, author: user) }
 
     before { get edit_event_path(event) }
 
@@ -53,7 +50,7 @@ RSpec.describe 'Events', type: :request do
   describe 'PUT /update' do
     subject(:update_request) { put event_url(event), params: params }
 
-    let(:event) { FactoryBot.create(:event, author: user) }
+    let(:event) { create(:event, author: user) }
 
     context 'with valid params' do
       let(:params) { { event: { title: 'new title!' } } }
@@ -82,7 +79,7 @@ RSpec.describe 'Events', type: :request do
     context 'with different user' do
       subject(:update_request) { put event_url(other_users_event), params: params }
 
-      let(:other_users_event) { FactoryBot.create(:event, author: other_user) }
+      let(:other_users_event) { create(:event, author: other_user) }
       let(:params) { { event: { title: 'new title!' } } }
 
       it 'does not update' do
@@ -96,7 +93,7 @@ RSpec.describe 'Events', type: :request do
     context 'with current user' do
       subject(:delete_request) { delete event_url(event) }
 
-      let!(:event) { FactoryBot.create(:event, author: user) }
+      let!(:event) { create(:event, author: user) }
 
       it { expect { delete_request }.to change(Event, :count).by(-1) }
       it { is_expected.to redirect_to events_path }
@@ -105,7 +102,7 @@ RSpec.describe 'Events', type: :request do
     context 'with different user' do
       subject(:delete_request) { delete event_url(event) }
 
-      let!(:event) { FactoryBot.create(:event, author: other_user) }
+      let!(:event) { create(:event, author: other_user) }
 
       it { expect { delete_request }.to change(Event, :count).by(0) }
       it { is_expected.to redirect_to events_path }

@@ -3,13 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin::Events', type: :request do
-  before do
-    DatabaseCleaner.clean
-  end
-
-  let(:admin) { FactoryBot.create(:admin) }
-  let(:user) { FactoryBot.create(:user) }
-  let!(:event) { FactoryBot.create(:event, author: user) }
+  let(:admin) { create(:admin) }
+  let(:user) { create(:user) }
+  let!(:event) { create(:event, author: user) }
 
   describe 'GET /admin/' do
     context 'with admin signed in' do
@@ -31,6 +27,7 @@ RSpec.describe 'Admin::Events', type: :request do
       it { expect(response).to have_http_status :found }
 
       it 'redirects' do
+        response.should redirect_to(admin_session_path)
         follow_redirect!
         expect(response).to have_http_status :success
       end
