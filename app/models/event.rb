@@ -15,6 +15,10 @@ class Event < ApplicationRecord
     event :reject do
       transitions from: :pending, to: :rejected
     end
+
+    event :renew do
+      transitions from: :rejected, to: :pending
+    end
   end
 
   validates :title, presence: true

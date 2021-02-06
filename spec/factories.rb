@@ -25,4 +25,8 @@ FactoryBot.define do
     link { Faker::Lorem.word }
     state { :approved }
   end
+
+  factory :pending_event, parent: :event do
+    state { :pending }
+  end
 end

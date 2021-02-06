@@ -8,6 +8,7 @@ RSpec.describe Admin::EventsController, type: :controller do
   end
 
   let!(:event) { create(:event) }
+  let(:pending_event) { create(:pending_event) }
 
   describe 'GET index' do
     it 'assigns @events' do
@@ -46,6 +47,29 @@ RSpec.describe Admin::EventsController, type: :controller do
     it 'deletes event as admin' do
       delete :destroy, params: { id: event.id }
       expect(Event.find_by(id: event.id)).to be_nil
+    end
+  end
+
+  describe 'PUT /event/approve' do
+    it 'approves' do
+      expect do
+        put :approve, params: { event_id: pending_event.id }
+      end.to change { pending_event.reload.state }.from('pending').to('approved')
+    end
+  end
+
+  describe 'PUT /event/reject' do
+    it 'rejects' do
+      expect do
+        put :reject, params: { event_id: pending_event.id }
+      end.to change { pending_event.reload.state }.from('pending').to('rejected')
+    end
+  end
+
+  describe 'GET pending' do
+    it 'assigns events' do
+      get :pending
+      expect(assigns(:events)).to eq [pending_event]
     end
   end
 end
