@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: feature do
-  let(:user) { FactoryBot.create(:user) }
-  let(:attributes) { FactoryBot.attributes_for(:user) }
+RSpec.describe User, type: :feature do
+  let(:user) { create(:user) }
+  let(:attributes) { attributes_for(:user) }
 
   describe 'Sign up' do
     before 'go to sign up page' do

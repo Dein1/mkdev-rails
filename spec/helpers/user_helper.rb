@@ -12,3 +12,8 @@ def fill_log_in_form(email, password)
   fill_in 'user[email]', with: email
   fill_in 'user[password]', with: password
 end
+
+def fill_admin_form(email, password)
+  fill_in 'admin[email]', with: email
+  fill_in 'admin[password]', with: password
+end
