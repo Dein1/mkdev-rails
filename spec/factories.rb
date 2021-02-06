@@ -23,5 +23,6 @@ FactoryBot.define do
     organizer_email { Faker::Lorem.word }
     organizer_telegram { Faker::Lorem.word }
     link { Faker::Lorem.word }
+    state { :approved }
   end
 end

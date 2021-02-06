@@ -42,7 +42,7 @@ RSpec.describe Admin::EventsController, type: :controller do
     end
   end
 
-  describe 'delete /admin' do
+  describe 'DELETE /admin' do
     it 'deletes event as admin' do
       delete :destroy, params: { id: event.id }
       expect(Event.find_by(id: event.id)).to be_nil

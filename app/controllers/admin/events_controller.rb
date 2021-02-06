@@ -3,7 +3,7 @@
 class Admin
   class EventsController < Admin::BaseController
     def index
-      @events = Event.order(created_at: :desc).page(params[:page])
+      @events = Event.where(state: %i[approved rejected]).order(created_at: :desc).page(params[:page])
     end
 
     def edit
@@ -26,6 +26,26 @@ class Admin
       @event.destroy
 
       redirect_to admin_events_path, warning: t(:was_deleted)
+    end
+
+    def pending
+      @events = Event.where(state: :pending).order(created_at: :desc).page(params[:page])
+    end
+
+    def approve
+      @event = Event.find(params[:event_id])
+
+      @event.approve!
+
+      redirect_to pending_admin_events_path, success: t(:was_approved)
+    end
+
+    def reject
+      @event = Event.find(params[:event_id])
+
+      @event.reject!
+
+      redirect_to pending_admin_events_path, warning: t(:was_rejected)
     end
 
     private
