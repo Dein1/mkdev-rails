@@ -24,9 +24,9 @@ FactoryBot.define do
     organizer_telegram { Faker::Lorem.word }
     link { Faker::Lorem.word }
     state { :approved }
-  end
 
-  factory :pending_event, parent: :event do
-    state { :pending }
+    trait :pending do
+      state { :pending }
+    end
   end
 end

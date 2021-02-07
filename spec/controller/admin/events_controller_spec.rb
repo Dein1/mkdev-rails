@@ -4,11 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Admin::EventsController, type: :controller do
   before do
-    sign_in create(:admin)
+    sign_in admin
   end
 
+  let(:admin) { create(:admin) }
   let!(:event) { create(:event) }
-  let(:pending_event) { create(:pending_event) }
+  let(:pending_event) { create(:event, :pending) }
 
   describe 'GET index' do
     it 'assigns @events' do
@@ -56,6 +57,20 @@ RSpec.describe Admin::EventsController, type: :controller do
         put :approve, params: { id: pending_event.id }
       end.to change { pending_event.reload.state }.from('pending').to('approved')
     end
+
+    context 'without admin signed in' do
+      subject(:approve_request) { put :approve, params: { id: pending_event.id } }
+
+      before { sign_out admin }
+
+      it 'not working without sign in' do
+        expect { approve_request }.not_to change { pending_event.reload.state }.from('pending')
+      end
+
+      it 'redirects' do
+        expect(approve_request).to redirect_to new_admin_session_path
+      end
+    end
   end
 
   describe 'PUT /event/reject' do
@@ -63,6 +78,20 @@ RSpec.describe Admin::EventsController, type: :controller do
       expect do
         put :reject, params: { id: pending_event.id }
       end.to change { pending_event.reload.state }.from('pending').to('rejected')
+    end
+
+    context 'without admin signed in' do
+      subject(:reject_request) { put :reject, params: { id: pending_event.id } }
+
+      before { sign_out admin }
+
+      it 'not working without sign in' do
+        expect { reject_request }.not_to change { pending_event.reload.state }.from('pending')
+      end
+
+      it 'redirects' do
+        expect(reject_request).to redirect_to new_admin_session_path
+      end
     end
   end
 

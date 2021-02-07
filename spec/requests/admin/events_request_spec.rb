@@ -6,7 +6,7 @@ RSpec.describe 'Admin::Events', type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
   let!(:event) { create(:event, author: user) }
-  let(:pending_event) { create(:pending_event, author: user) }
+  let(:pending_event) { create(:event, :pending, author: user) }
 
   describe 'GET /admin/' do
     context 'with admin signed in' do
