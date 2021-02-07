@@ -53,7 +53,7 @@ RSpec.describe Admin::EventsController, type: :controller do
   describe 'PUT /event/approve' do
     it 'approves' do
       expect do
-        put :approve, params: { event_id: pending_event.id }
+        put :approve, params: { id: pending_event.id }
       end.to change { pending_event.reload.state }.from('pending').to('approved')
     end
   end
@@ -61,7 +61,7 @@ RSpec.describe Admin::EventsController, type: :controller do
   describe 'PUT /event/reject' do
     it 'rejects' do
       expect do
-        put :reject, params: { event_id: pending_event.id }
+        put :reject, params: { id: pending_event.id }
       end.to change { pending_event.reload.state }.from('pending').to('rejected')
     end
   end

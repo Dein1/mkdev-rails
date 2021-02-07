@@ -3,7 +3,7 @@
 class Admin
   class EventsController < Admin::BaseController
     def index
-      @events = Event.where(state: %i[approved rejected]).order(created_at: :desc).page(params[:page])
+      @events = Event.resolved.order(created_at: :desc).page(params[:page])
     end
 
     def edit
@@ -29,11 +29,11 @@ class Admin
     end
 
     def pending
-      @events = Event.where(state: :pending).order(created_at: :desc).page(params[:page])
+      @events = Event.pending.order(created_at: :desc).page(params[:page])
     end
 
     def approve
-      @event = Event.find(params[:event_id])
+      @event = Event.find(params[:id])
 
       @event.approve!
 
@@ -41,7 +41,7 @@ class Admin
     end
 
     def reject
-      @event = Event.find(params[:event_id])
+      @event = Event.find(params[:id])
 
       @event.reject!
 

@@ -8,13 +8,19 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'events#index'
+
     resources :events do
       collection do
         get 'pending'
       end
 
-      put 'approve'
-      put 'reject'
+      member do
+        put 'approve'
+      end
+
+      member do
+        put 'reject'
+      end
     end
   end
 end

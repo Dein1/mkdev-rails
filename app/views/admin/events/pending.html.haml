@@ -9,8 +9,8 @@
           .small= event.description
           .small #{event.author.name} #{event.author.last_name}
         .btn-group
-          = link_to t(:approve), admin_event_approve_path(event.id), class: "btn btn-outline-success", method: :put
-          = link_to t(:reject), admin_event_reject_path(event.id), class: "btn btn-outline-warning", method: :put
+          = link_to t(:approve), approve_admin_event_path(event), class: "btn btn-outline-success", method: :put
+          = link_to t(:reject), reject_admin_event_path(event), class: "btn btn-outline-warning", method: :put
           = link_to t(:edit), edit_admin_event_path(event), class: "btn btn-outline-primary"
           = link_to t(:delete), admin_event_path(event), class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:delete_confirm) }
     %br

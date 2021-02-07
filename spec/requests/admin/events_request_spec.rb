@@ -79,7 +79,7 @@ RSpec.describe 'Admin::Events', type: :request do
   end
 
   describe 'PUT /approve' do
-    subject(:approve_request) { put admin_event_approve_path(pending_event) }
+    subject(:approve_request) { put approve_admin_event_path(pending_event) }
 
     before { sign_in admin }
 
@@ -92,7 +92,7 @@ RSpec.describe 'Admin::Events', type: :request do
   end
 
   describe 'PUT /reject' do
-    subject(:reject_request) { put admin_event_reject_path(pending_event) }
+    subject(:reject_request) { put reject_admin_event_path(pending_event) }
 
     before { sign_in admin }
 
