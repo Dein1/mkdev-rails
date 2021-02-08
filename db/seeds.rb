@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Admin.create email: 'admin@admin.ru', password: 'admin123'
-User.create email: 'user@user.ru', password: 'user123'
-FactoryBot.create_list(:event, 20)
+user = User.create email: 'user@user.ru', password: 'user123', name: 'User', last_name: 'Name'
+FactoryBot.create_list(:event, 20, author: user)
