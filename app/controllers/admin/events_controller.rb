@@ -2,6 +2,8 @@
 
 class Admin
   class EventsController < Admin::BaseController
+    before_action :find_event, except: %i[index pending]
+
     def index
       @events = Event.resolved.order(created_at: :desc).page(params[:page])
     end
@@ -49,6 +51,10 @@ class Admin
     end
 
     private
+
+    def find_event
+      @event = Event.find(params[:id])
+    end
 
     def event_params
       params.require(:event).permit!

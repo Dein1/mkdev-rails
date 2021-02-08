@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   before_action :check_user, only: %i[edit update destroy]
 
   def index
-    @events = Event.where(state: :approved).order(created_at: :desc).page(params[:page])
+    @events = Event.approved.order(created_at: :desc).page(params[:page])
   end
 
   def show; end

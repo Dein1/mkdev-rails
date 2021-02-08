@@ -10,7 +10,7 @@ RSpec.describe EventsController, type: :controller do
   let!(:approved_event) { create(:event) }
   let(:pending_event) { create(:event, :pending) }
 
-  describe 'GET index' do
+  describe 'GET #index' do
     it 'assign only approved event to @events' do
       get :index
       expect(assigns(:events)).to eq [approved_event]

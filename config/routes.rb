@@ -16,9 +16,6 @@ Rails.application.routes.draw do
 
       member do
         put 'approve'
-      end
-
-      member do
         put 'reject'
       end
     end

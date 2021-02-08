@@ -2,6 +2,7 @@
 
 require 'simplecov'
 require 'capybara/rspec'
+require 'aasm/rspec'
 
 SimpleCov.start
 
