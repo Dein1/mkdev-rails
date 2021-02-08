@@ -2,8 +2,10 @@
 
 class Admin
   class EventsController < Admin::BaseController
+    before_action :find_event, except: %i[index pending]
+
     def index
-      @events = Event.order(created_at: :desc).page(params[:page])
+      @events = Event.resolved.order(created_at: :desc).page(params[:page])
     end
 
     def edit
@@ -28,7 +30,31 @@ class Admin
       redirect_to admin_events_path, warning: t(:was_deleted)
     end
 
+    def pending
+      @events = Event.pending.order(created_at: :desc).page(params[:page])
+    end
+
+    def approve
+      @event = Event.find(params[:id])
+
+      @event.approve!
+
+      redirect_to pending_admin_events_path, success: t(:was_approved)
+    end
+
+    def reject
+      @event = Event.find(params[:id])
+
+      @event.reject!
+
+      redirect_to pending_admin_events_path, warning: t(:was_rejected)
+    end
+
     private
+
+    def find_event
+      @event = Event.find(params[:id])
+    end
 
     def event_params
       params.require(:event).permit!

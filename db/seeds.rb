@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Admin.create email: 'admin@admin.ru', password: 'admin123'
+user = User.create email: 'user@user.ru', password: 'user123', name: 'User', last_name: 'Name'
+FactoryBot.create_list(:event, 20, author: user)

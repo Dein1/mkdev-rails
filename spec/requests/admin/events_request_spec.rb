@@ -6,6 +6,7 @@ RSpec.describe 'Admin::Events', type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
   let!(:event) { create(:event, author: user) }
+  let(:pending_event) { create(:event, :pending, author: user) }
 
   describe 'GET /admin/' do
     context 'with admin signed in' do
@@ -65,5 +66,41 @@ RSpec.describe 'Admin::Events', type: :request do
 
     it { expect { delete_request }.to change(Event, :count).by(-1) }
     it { is_expected.to redirect_to admin_events_path }
+  end
+
+  describe 'GET /pending' do
+    before do
+      sign_in admin
+      get pending_admin_events_path
+    end
+
+    it { expect(response).to have_http_status :success }
+    it { is_expected.to render_template :pending }
+  end
+
+  describe 'PUT /approve' do
+    subject(:approve_request) { put approve_admin_event_path(pending_event) }
+
+    before { sign_in admin }
+
+    it 'approves' do
+      approve_request
+      expect(pending_event.reload.state).to eql 'approved'
+    end
+
+    it { is_expected.to redirect_to pending_admin_events_path }
+  end
+
+  describe 'PUT /reject' do
+    subject(:reject_request) { put reject_admin_event_path(pending_event) }
+
+    before { sign_in admin }
+
+    it 'rejects' do
+      reject_request
+      expect(pending_event.reload.state).to eql 'rejected'
+    end
+
+    it { is_expected.to redirect_to pending_admin_events_path }
   end
 end

@@ -14,4 +14,11 @@ RSpec.describe Event, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:author) }
   end
+
+  describe 'state and transitions' do
+    it { expect(event).to have_state(:approved) }
+    it { expect(event).to transition_from(:pending).to(:approved).on_event(:approve) }
+    it { expect(event).to transition_from(:pending).to(:rejected).on_event(:reject) }
+    it { expect(event).to transition_from(:rejected).to(:pending).on_event(:renew) }
+  end
 end

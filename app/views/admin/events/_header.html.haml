@@ -1,0 +1,8 @@
+.text-center= t(:admin_panel)
+- if current_admin
+  .container
+    .font-italic= t(:logged_as_admin)
+    .font-weight-bold #{current_admin.email}
+    = link_to t(:sign_out_admin), destroy_admin_session_path, method: :delete, class: "btn btn-link"
+%br
+%br
