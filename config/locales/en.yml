@@ -62,3 +62,4 @@ en:
   reject: "Reject"
   rejected: "Rejected"
   was_rejected: "Event was rejected"
+  pending_events: "Go to check pending events"
