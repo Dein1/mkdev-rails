@@ -82,4 +82,6 @@ Rails.application.configure do
     domain: ENV['mailbox_domain'],
     # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
+
+  config.active_job.queue_adapter = :sidekiq
 end
