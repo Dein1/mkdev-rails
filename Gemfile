@@ -7,6 +7,7 @@ ruby '2.7.0'
 
 gem 'aasm'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'config'
 gem 'devise'
 gem 'dry-monads'
 gem 'haml-rails', '~> 2.0'

@@ -63,3 +63,6 @@ en:
   rejected: "Rejected"
   was_rejected: "Event was rejected"
   pending_events: "Go to check pending events"
+  new_event_notification: "New event: %{event_name}"
+  invalid_params: "Invalid params!"
+

@@ -16,4 +16,11 @@ RSpec.describe EventsController, type: :controller do
       expect(assigns(:events)).to eq [approved_event]
     end
   end
+
+  describe 'POST #create' do
+    it 'calls eventcreator' do
+      creator = instance_spy('eventcreator')
+      expect(creator).to have_recieved(:call)
+    end
+  end
 end

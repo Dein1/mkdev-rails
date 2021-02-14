@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   def create
     @event = EventCreator.call(event_params, current_user)
 
-    if @event.success?
+    if @event.save
       redirect_to events_path, success: t(:was_created)
     else
       render :new

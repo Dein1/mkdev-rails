@@ -9,7 +9,7 @@ RSpec.describe EventMailer, type: :mailer do
     it 'generates notification email' do
       mailer = described_class.with(event: event).new_event_notification
 
-      expect(mailer.subject).to eq("New event #{event.title}")
+      expect(mailer.subject).to eq("New event: #{event.title}")
     end
   end
 end
