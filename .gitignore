@@ -39,3 +39,8 @@
 yarn-debug.log*
 .yarn-integrity
 coverage
+
+/.env
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
